@@ -2,6 +2,7 @@ import json,os,urllib.request as w
 U=os.environ["MAKEFUN_ENV_URL"]
 O=(-17,-15,-10,-6,6,10,15,17,-9,-8,-7,-1,1,7,8,9)
 D=(1,-1,8,-8)
+H=(7,5,3,1,1,3,5,7)
 E=(7,-7,9,-9)
 T=[0]
 I=-10001
@@ -86,14 +87,14 @@ def F(b,c):
   if not q:continue
   a=abs(q)
   w+=(a==3)*(q>0 or-1)
-  r=i>>3;j=6-max(abs(2*(i&7)-7),abs(2*r-7))
+  r=i>>3;j=6-max(H[i&7],H[r])
   v=(0,100+(r if q>0 else 7-r)*10,320+j*8,330+j*4,500+12*(r==1+5*(q>0)),900+j*3,j*(8 if n else-6))[a]
   t+=v if q>0 else-v
  t+=30*((w==2)-(w==-2))
  return t if c>0 else-t
 def S(b,c,k,e,d,a,f,y=0):
  T[0]+=1
- if T[0]>3e4:raise Z
+ if T[0]>6e4:raise Z
  j=b.index(6*c)
  q=d<=0;h=A(b,j,-c)
  if q and not h:
