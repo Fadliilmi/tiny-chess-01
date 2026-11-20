@@ -98,7 +98,7 @@ def F(b,c):
  return t+10 if c>0 else-t+10
 def S(b,c,k,e,d,a,f,y=0):
  T[0]+=1
- if T[0]>6e4:raise Z
+ if T[0]>7e4:raise Z
  j=b.index(6*c)
  q=d<=0;h=A(b,j,-c)
  if q and not h:
