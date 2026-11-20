@@ -5,6 +5,7 @@ D=(1,-1,8,-8)
 H=(7,5,3,1,1,3,5,7)
 E=(7,-7,9,-9)
 T=[0]
+K=[0]*17
 I=-10001
 Z=KeyError
 def p(h,d):
@@ -89,9 +90,12 @@ def F(b,c):
   w+=(a==3)*(q>0 or-1)
   r=i>>3;j=6-max(H[i&7],H[r])
   v=(0,100+(r if q>0 else 7-r)*10,320+j*8,330+j*4,500+12*(r==1+5*(q>0)),900+j*3,j*(8 if n else-6))[a]
+  if a==6:
+   d=q//6
+   if-1<r+d<8 and 0<i&7<7:v+=15*sum(b[i+o*d]==d for o in(7,8,9))
   t+=v if q>0 else-v
  t+=30*((w==2)-(w==-2))
- return t if c>0 else-t
+ return t+10 if c>0 else-t+10
 def S(b,c,k,e,d,a,f,y=0):
  T[0]+=1
  if T[0]>6e4:raise Z
@@ -102,7 +106,7 @@ def S(b,c,k,e,d,a,f,y=0):
   if s>=f or y>9:return min(s,f)
   if s>a:a=s
  m=g(b,c,k,e,q and not h)
- m.sort(key=lambda x:b[x[1]]*c)
+ m.sort(key=lambda x:b[x[1]]*c-(x==K[d+10])*9-b[x[0]]*c/10)
  t=I;n=0
  for x in m:
   o,p,v,_=M(b,x,c,k,e)
@@ -110,7 +114,9 @@ def S(b,c,k,e,d,a,f,y=0):
   n+=1;s=-S(o,-c,p,v,d-1,-f,-a,y+1 if q else 0)
   if s>t:t=s
   if s>a:a=s
-  if a>=f:break
+  if a>=f:
+   if not q and not b[x[1]]:K[d+10]=x
+   break
  return-10000 if n==0 and h else a if q else t if n else 0
 def X(b,c,k,e,L):
  if len(L)==1:return L[0]
@@ -128,17 +134,9 @@ def X(b,c,k,e,L):
   except Z:break
  return y
 def u(m):return chr(97+(m[0]&7))+str(m[0]//8+1)+chr(97+(m[1]&7))+str(m[1]//8+1)+(" pnbrqk"[m[2]]if m[2]else"")
-def P(f):
- d=f.split();b=[0]*64;i=56
- for j in d[0]:
-  if j=="/":i-=16
-  elif j.isdigit():i+=int(j)
-  else:b[i]=("PNBRQK".index(j.upper())+1)*(j<"a"or-1);i+=1
- c=1 if d[1]=="w"else-1
- k=sum(1<<i for i,j in enumerate("KQkq")if j in d[2])
- e=-1 if d[3]=="-"else ord(d[3][0])-97+(int(d[3][1])-1)*8
- return b,c,k,e
+def t(s):return(ord(s[0])-97+(ord(s[1])-49)*8,ord(s[2])-97+(ord(s[3])-49)*8,"pnbrqk".index(s[4])+1 if s[4:]else 0)
 while(G:=p("/game",{}))["status"]!="done":
  while G["status"]=="your_move":
-  b,c,k,e=P(G["fen"])
-  G=p("/move",{"game":G["game"],"move":u(X(b,c,k,e,[(ord(m[0])-97+(ord(m[1])-49)*8,ord(m[2])-97+(ord(m[3])-49)*8,"pnbrqk".index(m[4])+1 if m[4:]else 0)for m in G["legal_moves"]]))})
+  b,c,k,e=[4,2,3,5,6,3,2,4,1,1,1,1,1,1,1,1]+[0]*32+[-1]*8+[-4,-2,-3,-5,-6,-3,-2,-4],1,15,-1
+  for s in G["moves"]:b,k,e,_=M(b,t(s),c,k,e);c=-c
+  G=p("/move",{"game":G["game"],"move":u(X(b,c,k,e,[t(s)for s in G["legal_moves"]]))})
