@@ -75,17 +75,16 @@ def M(b,m,c,k,e):
  if abs(q)==6:
   k&=~3 if c>0 else~12
   if abs(t-s)==2:
-   a=t+1 if t in(6,62)else t-2
-   d=t-1 if t in(6,62)else t+1
+   a=t+1 if t%56==6 else t-2
+   d=t-1 if t%56==6 else t+1
    n[d],n[a]=n[a],0
  for z in(s,t):k&=~{0:2,7:1,56:8,63:4}.get(z,0)
  return n,k,s+8*c if abs(q)==1 and abs(t-s)==16 else-1,v
 def F(b,c):
- t=0;w=0;n=1
+ t=0;w=0;n=5 not in map(abs,b)
  for i,q in enumerate(b):
   if not q:continue
   a=abs(q)
-  if a==5:n=0
   w+=(a==3)*(q>0 or-1)
   r=i>>3;j=6-max(abs(2*(i&7)-7),abs(2*r-7))
   v=(0,100+(r if q>0 else 7-r)*10,320+j*8,330+j*4,500+12*(r==1+5*(q>0)),900+j*3,j*(8 if n else-6))[a]
