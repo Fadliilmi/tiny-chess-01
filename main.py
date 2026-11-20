@@ -102,7 +102,7 @@ def S(b,c,k,e,d,a,f,y=0):
   if s>=f or y>9:return min(s,f)
   if s>a:a=s
  m=g(b,c,k,e,q and not h)
- m.sort(key=lambda x:b[x[1]]*c,reverse=True)
+ m.sort(key=lambda x:b[x[1]]*c)
  t=I;n=0
  for x in m:
   o,p,v,_=M(b,x,c,k,e)
