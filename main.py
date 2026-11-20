@@ -138,7 +138,7 @@ def P(f):
  k=sum(1<<i for i,j in enumerate("KQkq")if j in d[2])
  e=-1 if d[3]=="-"else ord(d[3][0])-97+(int(d[3][1])-1)*8
  return b,c,k,e
-while(g:=p("/game",{}))["status"]!="done":
- while g["status"]=="your_move":
-  b,c,k,e=P(g["fen"])
-  g=p("/move",{"game":g["game"],"move":u(X(b,c,k,e,[(ord(m[0])-97+(ord(m[1])-49)*8,ord(m[2])-97+(ord(m[3])-49)*8,"pnbrqk".index(m[4])+1 if m[4:]else 0)for m in g["legal_moves"]]))})
+while(G:=p("/game",{}))["status"]!="done":
+ while G["status"]=="your_move":
+  b,c,k,e=P(G["fen"])
+  G=p("/move",{"game":G["game"],"move":u(X(b,c,k,e,[(ord(m[0])-97+(ord(m[1])-49)*8,ord(m[2])-97+(ord(m[3])-49)*8,"pnbrqk".index(m[4])+1 if m[4:]else 0)for m in G["legal_moves"]]))})
