@@ -127,7 +127,7 @@ def X(b,c,k,e,L):
     if s>a:a=s
   except Z:break
  return y
-def u(m):return chr(97+(m[0]&7))+str(m[0]//8+1)+chr(97+(m[1]&7))+str(m[1]//8+1)+("pnbrqk"[m[2]]if m[2]else"")
+def u(m):return chr(97+(m[0]&7))+str(m[0]//8+1)+chr(97+(m[1]&7))+str(m[1]//8+1)+(" pnbrqk"[m[2]]if m[2]else"")
 def P(f):
  d=f.split();b=[0]*64;i=56
  for j in d[0]:
